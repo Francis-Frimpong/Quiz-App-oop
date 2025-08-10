@@ -76,13 +76,27 @@ class Quiz {
       currentQuestion.correctAnswer
     );
 
+    document.getElementById("question-text").textContent = question.text;
+    const optionContainer = document.getElementById("options-container");
+    optionContainer.innerHTML = "";
+
+    question.options.forEach((option) => {
+      const button = document.createElement("button");
+      button.classList.add("option-btn");
+      button.textContent = option;
+      optionContainer.appendChild(button);
+    });
+
     return question;
   }
 
   submitAnswer(answer) {}
 
   nextQuestion() {
-    this.currentIndex++;
+    if (this.currentIndex < questions.length) {
+      this.currentIndex++;
+    }
+
     this.getCurrentQuestion();
     return this.questions[this.currentIndex];
   }
@@ -90,7 +104,8 @@ class Quiz {
   hasEnded() {}
 }
 
+const nextButton = document.getElementById("next-btn");
 const quiz = new Quiz(questions);
-console.log(quiz.getCurrentQuestion());
-console.log(quiz.nextQuestion());
-console.log(quiz.nextQuestion());
+quiz.getCurrentQuestion();
+
+nextButton.addEventListener("click", () => quiz.nextQuestion());
