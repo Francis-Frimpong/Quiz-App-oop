@@ -148,7 +148,7 @@ quiz.getCurrentQuestion();
 nextButton.addEventListener("click", () => quiz.nextQuestion());
 
 // Disable all buttons inside container
-container.addEventListener("click", function (event) {
+container.addEventListener("click", (event) => {
   if (event.target.classList.contains("option-btn")) {
     const buttons = container.querySelectorAll("button");
     buttons.forEach((button) => (button.disabled = true));
