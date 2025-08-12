@@ -72,7 +72,6 @@ class Quiz {
 
   getCurrentQuestion() {
     if (this.currentIndex >= this.questions.length) {
-      console.log("Quiz has ended");
       return null;
     }
 
