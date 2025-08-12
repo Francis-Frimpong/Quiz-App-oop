@@ -137,7 +137,7 @@ class Quiz {
     console.log("Quiz finished! Final score:", this.score);
     document.getElementById(
       "question-text"
-    ).textContent = `Quiz Finished!: You scored: ${this.score}`;
+    ).textContent = `Quiz Finished!: You scored: ${this.score} out of 10`;
     document.getElementById("options-container").innerHTML = "";
   }
 }
