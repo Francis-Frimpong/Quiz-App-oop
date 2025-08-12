@@ -134,7 +134,6 @@ class Quiz {
   }
 
   hasEnded() {
-    console.log("Quiz finished! Final score:", this.score);
     document.getElementById(
       "question-text"
     ).textContent = `Quiz Finished!: You scored: ${this.score} out of 10`;
