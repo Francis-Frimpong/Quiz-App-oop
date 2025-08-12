@@ -58,7 +58,9 @@ class Question {
     this.correctAnswer = correctAnswer;
   }
 
-  isCorrect(answer) {}
+  isCorrect(answer) {
+    return answer === this.correctAnswer;
+  }
 }
 
 class Quiz {
@@ -69,6 +71,11 @@ class Quiz {
   }
 
   getCurrentQuestion() {
+    if (this.currentIndex >= this.questions.length) {
+      console.log("Quiz has ended");
+      return null;
+    }
+
     const currentQuestion = this.questions[this.currentIndex];
     const question = new Question(
       currentQuestion.text,
@@ -84,24 +91,55 @@ class Quiz {
       const button = document.createElement("button");
       button.classList.add("option-btn");
       button.textContent = option;
+
       optionContainer.appendChild(button);
+
+      button.addEventListener(
+        "click",
+        () => {
+          this.submitAnswer(button.textContent);
+        }
+        // console.log(button.textContent)
+      );
     });
 
     return question;
   }
 
-  submitAnswer(answer) {}
+  submitAnswer(answer) {
+    // const currentQuestion = this.getCurrentQuestion();
+    const currentQuestion = this.questions[this.currentIndex];
+    const questionObj = new Question(
+      currentQuestion.text,
+      currentQuestion.options,
+      currentQuestion.correctAnswer
+    );
 
-  nextQuestion() {
-    if (this.currentIndex < questions.length) {
-      this.currentIndex++;
+    if (questionObj.isCorrect(answer)) {
+      this.score++;
+      document.getElementById(
+        "score-text"
+      ).textContent = `Score: ${this.score}`;
+      console.log(this.score);
     }
-
-    this.getCurrentQuestion();
-    return this.questions[this.currentIndex];
   }
 
-  hasEnded() {}
+  nextQuestion() {
+    this.currentIndex++;
+    if (this.currentIndex < this.questions.length) {
+      this.getCurrentQuestion();
+    } else {
+      this.hasEnded();
+    }
+  }
+
+  hasEnded() {
+    console.log("Quiz finished! Final score:", this.score);
+    document.getElementById(
+      "question-text"
+    ).textContent = `Quiz Finished!: You scored: ${this.score}`;
+    document.getElementById("options-container").innerHTML = "";
+  }
 }
 
 const nextButton = document.getElementById("next-btn");
