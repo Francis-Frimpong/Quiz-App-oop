@@ -60,6 +60,13 @@ body {
   color: white;
 }
 
+.disabled {
+  background-color: #ccc; /* grey out */
+  color: #666; /* dim text */
+  cursor: not-allowed; /* show not-allowed icon */
+  opacity: 0.7; /* faded look */
+}
+
 .quiz-footer {
   display: flex;
   justify-content: space-between;

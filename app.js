@@ -91,15 +91,15 @@ class Quiz {
       button.classList.add("option-btn");
       button.textContent = option;
 
-      optionContainer.appendChild(button);
-
-      button.addEventListener(
-        "click",
-        () => {
-          this.submitAnswer(button.textContent);
+      button.addEventListener("click", () => {
+        this.submitAnswer(button.textContent);
+        if (button.textContent === currentQuestion.correctAnswer) {
+          button.classList.add("correct");
+        } else {
+          button.classList.add("wrong");
         }
-        // console.log(button.textContent)
-      );
+      });
+      optionContainer.appendChild(button);
     });
 
     return question;
@@ -119,7 +119,6 @@ class Quiz {
       document.getElementById(
         "score-text"
       ).textContent = `Score: ${this.score}`;
-      console.log(this.score);
     }
   }
 
@@ -141,7 +140,17 @@ class Quiz {
 }
 
 const nextButton = document.getElementById("next-btn");
+const container = document.getElementById("options-container");
+
 const quiz = new Quiz(questions);
 quiz.getCurrentQuestion();
 
 nextButton.addEventListener("click", () => quiz.nextQuestion());
+
+// Disable all buttons inside container
+container.addEventListener("click", function (event) {
+  if (event.target.classList.contains("option-btn")) {
+    const buttons = container.querySelectorAll("button");
+    buttons.forEach((button) => (button.disabled = true));
+  }
+});
