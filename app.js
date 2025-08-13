@@ -86,6 +86,14 @@ class Quiz {
     const optionContainer = document.getElementById("options-container");
     optionContainer.innerHTML = "";
 
+    // Disable all buttons inside container when it is click
+    optionContainer.addEventListener("click", (event) => {
+      if (event.target.classList.contains("option-btn")) {
+        const buttons = optionContainer.querySelectorAll("button");
+        buttons.forEach((button) => (button.disabled = true));
+      }
+    });
+
     question.options.forEach((option) => {
       const button = document.createElement("button");
       button.classList.add("option-btn");
@@ -146,11 +154,3 @@ const quiz = new Quiz(questions);
 quiz.getCurrentQuestion();
 
 nextButton.addEventListener("click", () => quiz.nextQuestion());
-
-// Disable all buttons inside container
-container.addEventListener("click", (event) => {
-  if (event.target.classList.contains("option-btn")) {
-    const buttons = container.querySelectorAll("button");
-    buttons.forEach((button) => (button.disabled = true));
-  }
-});
